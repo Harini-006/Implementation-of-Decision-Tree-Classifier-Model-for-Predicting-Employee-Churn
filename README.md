@@ -21,52 +21,44 @@ Developed by: Harini S
 RegisterNumber:  24010678
 */
 ```
-import pandas as pd
+```import pandas as pd
+from sklearn.tree import DecisionTreeClassifier,plot_tree
 data=pd.read_csv("Employee.csv")
-print("data.head():")
 data.head()
-print("data.info():")
 data.info()
-print(data.isnull().sum())
-print("data value counts():")
+data.isnull().sum()
 data["left"].value_counts()
 from sklearn.preprocessing import LabelEncoder
 le=LabelEncoder()
-print("data.head() for Salary:")
-data["salary" ]=le.fit_transform(data["salary"])
+data["salary"]=le.fit_transform(data["salary"])
 data.head()
-x = data[["satisfaction_level", "last_evaluation"]]
-print(x.head())
-y = data["left"]
+x=x=data[["satisfaction_level","last_evaluation","number_project","average_montly_hours",
+           "time_spend_company","Work_accident","promotion_last_5years","salary"]]
+x.head()
+y=data["left"]
 from sklearn.model_selection import train_test_split
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2) 
-
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=100)
 from sklearn.tree import DecisionTreeClassifier
-dt = DecisionTreeClassifier(criterion="entropy")
-dt.fit(x_train, y_train)
-y_pred = dt.predict(x_test)print("Accuracy value:")
+dt=DecisionTreeClassifier(criterion="entropy")
+dt.fit(x_train,y_train)
+y_pred=dt.predict(x_test)
 from sklearn import metrics
 accuracy=metrics.accuracy_score(y_test,y_pred)
 accuracy
-print("Data Prediction:")
-dt.predict([[0.5,9.8,9,268,6,0,1,2], [0.6,10.2,8,270,5,1,1,2]])
+dt.predict([[0.5,0.8,9,260,6,0,1,2]])
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
+
 plt.figure(figsize=(8,6))
-plot_tree(dt, feature_names=x.columns, class_names=['salary', 'left'], filled=True)
-plt.show()
+plot_tree(dt, feature_names=x.columns, class_names=['salary' , 'left'],filled=True) 
+plt.show()  ```
+
+ 
+
+ 
 
 ## Output:
 ![decision tree classifier model](sam.png)
-data.head():
-satisfaction_level	last_evaluation	number_project	average_montly_hours	time_spend_company	Work_accident	left	promotion_last_5years	Departments	salary
-0	0.38	0.53	2	157	3	0	1	0	sales	low
-1	0.80	0.86	5	262	6	0	1	0	sales	medium
-2	0.11	0.88	7	272	4	0	1	0	sales	medium
-3	0.72	0.87	5	223	5	0	1	0	sales	low
-4	0.37	0.52	2	159	3	0	1	0	sale
-data.info():
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 14999 entries, 0 to 14998
 Data columns (total 10 columns):
@@ -84,39 +76,8 @@ Data columns (total 10 columns):
  9   salary                 14999 non-null  object 
 dtypes: float64(2), int64(6), object(2)
 memory usage: 1.1+ MB
-satisfaction_level       0
-last_evaluation          0
-number_project           0
-average_montly_hours     0
-time_spend_company       0
-Work_accident            0
-left                     0
-promotion_last_5years    0
-Departments              0
-salary                   0
-dtype: int64
-data value counts():
-0    11428
-1     3571
-Name: left, dtype: int64
-data.head() for Salary:
-satisfaction_level	last_evaluation	number_project	average_montly_hours	time_spend_company	Work_accident	left	promotion_last_5years	Departments	salary
-0	0.38	0.53	2	157	3	0	1	0	sales	1
-1	0.80	0.86	5	262	6	0	1	0	sales	2
-2	0.11	0.88	7	272	4	0	1	0	sales	2
-3	0.72	0.87	5	223	5	0	1	0	sales	1
-4	0.37	0.52	2	159	3	0	1	0	sales	1
- satisfaction_level  last_evaluation
-0                0.38             0.53
-1                0.80             0.86
-2                0.11             0.88
-3                0.72             0.87
-4                0.37             0.52
-Accuracy value:
-0.9173333333333333
-Data Prediction:
 C:\ProgramData\anaconda3\Lib\site-packages\sklearn\base.py:439: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
   warnings.warn(
-  
+ 
 ## Result:
 Thus the program to implement the  Decision Tree Classifier Model for Predicting Employee Churn is written and verified using python programming.
